@@ -65,12 +65,13 @@ public class AuthResource implements AuthController {
     private ResponseCookie buildTokenCookie(String content, Long duration) {
         return ResponseCookie.from(AuthController.AUTH_COOKIE_TOKEN, content)
             .httpOnly(authService.getHttpOnly())
-            .sameSite("None")
-            .secure(true)
+            .sameSite(authService.getSecure() ? "None" : "Lax")
+            .secure(authService.getSecure())
             .path("/")
             .maxAge(Duration.ofMillis(duration))
             .build();
     }
+
 
     @Override
     public ResponseEntity<Map<String, String>> solveToken(TokenOut map) {

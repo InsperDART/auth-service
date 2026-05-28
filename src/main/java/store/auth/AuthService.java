@@ -21,6 +21,13 @@ public class AuthService {
     @Value("${store.jwt.httpOnly}")
     private Boolean httpOnly;
 
+    @Value("${store.jwt.secure}")
+    private Boolean secure;
+
+    public Boolean getSecure() {
+        return secure;
+    }
+
     @Autowired
     private AccountController accountController;
 
